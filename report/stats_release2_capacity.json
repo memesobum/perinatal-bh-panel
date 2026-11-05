@@ -1,0 +1,32 @@
+{
+  "version": "0.1.0",
+  "build_date": "2026-11-04",
+  "n_counties": 3144,
+  "ft_unique": 26642,
+  "ft_locations": 18908,
+  "ft_ppw_total": 4600,
+  "ft_assigned_pct": 99.7,
+  "ft_unassigned": 85,
+  "ft_state_mismatch_fixed": 10,
+  "hc_sites_counted": 11769,
+  "hc_locations_counted": 11219,
+  "hc_unplaced_no_address": 58,
+  "clinicians_counted": 1544251,
+  "ob_clinicians_total": 82517,
+  "bh_prescribers_total": 122193,
+  "bh_therapists_total": 1184102,
+  "family_medicine_total": 155439,
+  "n_no_ppw_sud_facility": 1793,
+  "pct_no_ppw_sud_facility": 57.0,
+  "pct_births_in_no_ppw_counties": 12.7,
+  "pct_no_ppw_by_class": {
+    "frontier": 86.6,
+    "metro": 35.1,
+    "rural": 65.5
+  },
+  "n_no_bh_prescriber": 905,
+  "r_ob_vs_ahrf": 0.925,
+  "r_psych_vs_ahrf": 0.885,
+  "nv_ppw_listings": 42,
+  "nv_counties_no_ppw": 10
+}

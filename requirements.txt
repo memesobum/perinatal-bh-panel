@@ -1,0 +1,8 @@
+pandas>=2.2
+numpy>=1.26
+requests>=2.31
+geopandas>=1.0
+pyogrio>=0.7
+shapely>=2.0
+matplotlib>=3.8
+openpyxl>=3.1

@@ -1,0 +1,17 @@
+{
+  "_comment": "Author block. Every document, citation file, Zenodo record, and commit reads from here. Confirm exact name spelling and affiliation before release (VERIFY_CHECKLIST Part 5).",
+  "authors": [
+    {
+      "name": "Munachimso A. Emesobum",
+      "family": "Emesobum",
+      "given": "Munachimso A.",
+      "orcid": "0009-0002-7506-2153",
+      "email": "emesobumm@gmail.com",
+      "affiliation": "Independent Researcher, Nevada, USA",
+      "roles": ["Conceptualization", "Methodology", "Validation", "Data curation", "Writing - original draft"],
+      "corresponding": true
+    }
+  ],
+  "collaborators": [],
+  "ai_assistance": "Claude (Anthropic) assisted with code and data handling. The author made every measurement decision and verified results."
+}

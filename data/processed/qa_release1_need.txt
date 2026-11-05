@@ -1,0 +1,52 @@
+QA REPORT  U.S. County Perinatal Behavioral Health Need and Capacity Panel, Release 1 (need)  v0.1.0
+Plain-language summary: this file is the build's self-check. Each section says what was
+counted and whether it passed. The Nevada section is for comparing with your county maps.
+
+1. COUNTY UNIVERSE AND JOINS (need table)
+  counties (Census PEP V2024, 50 states + DC): 3144  [expect 3144]  PASS
+  duplicate FIPS: 0  PASS
+  missing women_15_44: 0  []
+  missing births: 0  []
+  missing depression_crude_pct: 1  ['48301 Loving County']
+  missing svi_overall: 0  []
+  missing rucc_2023: 0  []
+  missing land_sqmi: 0  []
+  births source: NCHS 3-yr avg 3096; Census fallback 48 (9 Connecticut planning regions + 39 counties NCHS suppressed)
+  PLACES prior release (2024, BRFSS 2022) used for: 187 counties (KY, PA)
+
+2. RANGE AND SANITY CHECKS (need table)
+  depression_crude_pct: min 12.30 median 23.00 max 34.30; outside [5,40]: 0  PASS
+  svi_overall: min 0.00 median 0.50 max 1.00; outside [0,1]: 0  PASS
+  general_fertility_rate: min 0.00 median 60.00 max 226.30; outside [10,150]: 8  CHECK
+  rucc_2023: min 1.00 median 6.00 max 9.00; outside [1,9]: 0  PASS
+    GFR outlier: 02158 Kusilvak Census Area, AK: births 224.0, women 15-44 1473
+    GFR outlier: 02282 Yakutat City and Borough, AK: births 1.0, women 15-44 106
+    GFR outlier: 15005 Kalawao County, HI: births 0.0, women 15-44 8
+    GFR outlier: 31183 Wheeler County, NE: births 16.0, women 15-44 98
+    GFR outlier: 46041 Dewey County, SD: births 181.0, women 15-44 963
+    GFR outlier: 46095 Mellette County, SD: births 74.0, women 15-44 327
+    GFR outlier: 48301 Loving County, TX: births 1.0, women 15-44 6
+    GFR outlier: 51685 Manassas Park city, VA: births 33.0, women 15-44 3644
+  births sum: 3,642,063  (U.S. registers about 3.6 million births a year)
+  women 15-44 sum: 67,402,866
+
+3. NEVADA NEED VALUES
+      county_name rurality_class  rucc_2023  pop_density_2024  births  women_15_44  depression_crude_pct  svi_overall
+      Carson City          metro          3            402.31   512.0         9966                  21.4       0.8508
+ Churchill County       frontier          6              5.26   280.0         4666                  22.0       0.6271
+     Clark County          metro          1            303.98 24629.0       486069                  20.3       0.8635
+   Douglas County          rural          4             69.76   323.0         6516                  18.9       0.2059
+      Elko County       frontier          5              3.17   676.0        10729                  21.5       0.6185
+ Esmeralda County       frontier          9              0.20     2.0           91                  20.2       0.9077
+    Eureka County       frontier          9              0.45    18.0          292                  23.5       0.4254
+  Humboldt County       frontier          7              1.78   204.0         3233                  21.7       0.6160
+    Lander County       frontier          9              1.05    61.0         1122                  22.8       0.5762
+   Lincoln County       frontier          8              0.41    52.0          662                  21.2       0.5749
+      Lyon County          metro          2             31.81   622.0        10713                  21.4       0.5593
+   Mineral County       frontier          8              1.19    33.0          697                  22.3       0.5501
+       Nye County       frontier          4              3.08   382.0         7653                  21.0       0.7954
+  Pershing County       frontier          8              1.08    42.0          725                  19.6       0.6761
+    Storey County          metro          2             15.59    18.0          536                  19.7       0.1836
+    Washoe County          metro          2             80.32  4949.0       100957                  21.1       0.6971
+White Pine County       frontier          9              0.96    85.0         1313                  21.5       0.2498
+

@@ -1,0 +1,45 @@
+{
+  "ft_rows_raw": 27506,
+  "ft_unique": 26642,
+  "ft_assigned": 26557,
+  "ft_geo_method": {
+    "point_in_polygon": 24885,
+    "zip_to_county": 1662,
+    "unassigned": 85,
+    "zip_to_county_after_state_mismatch": 10
+  },
+  "ft_ppw_total": 4600,
+  "ft_type_counts": {
+    "MH": 12637,
+    "SA": 12047,
+    "OTP": 1958
+  },
+  "ft_assigned_outside_universe": 0,
+  "hc_rows_raw": 19528,
+  "hc_kept": 11992,
+  "hc_geo_method": {
+    "hrsa_county_code": 11928,
+    "unplaced_no_address_in_hrsa_file": 58,
+    "unassigned": 5,
+    "zip_to_county": 1
+  },
+  "hc_in_territories": 160,
+  "hc_in_panel": 11769,
+  "hc_in_panel_locations": 11219,
+  "ft_locations": 18908,
+  "ft_state_mismatch_fixed": 10,
+  "nppes_kept_raw": 1565614,
+  "nppes_us": 1564724,
+  "nppes_zip_match": {
+    "zcta_largest_land": 1528728,
+    "ct_zcta_point_to_planning_region": 23557,
+    "unmatched": 12439
+  },
+  "nppes_outside_universe": 8034,
+  "nppes_group_counts": {
+    "bh_therapist": 1198337,
+    "family_medicine": 157532,
+    "bh_prescriber": 124593,
+    "obstetric": 84262
+  }
+}

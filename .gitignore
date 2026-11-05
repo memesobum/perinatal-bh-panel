@@ -1,0 +1,10 @@
+# Large raw downloads: re-fetch with code/01_fetch.py (fingerprints in data/raw/PROVENANCE.txt)
+data/raw/*
+!data/raw/PROVENANCE.txt
+# Clinician-level extract (NPIs): rebuilt by code/02_extract_nppes.py; county and ZIP counts are committed
+data/processed/nppes_clinicians.csv
+data/processed/*.log
+dist/
+__pycache__/
+.env
+*.pem

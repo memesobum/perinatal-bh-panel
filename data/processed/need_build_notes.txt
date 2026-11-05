@@ -1,0 +1,2 @@
+rows=3144
+places_fallback_states=KY,PA

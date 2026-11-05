@@ -1,0 +1,106 @@
+QA REPORT  U.S. County Perinatal Behavioral Health Need and Capacity Panel, Release 2 (capacity)  v0.1.0
+Plain-language summary: this file is the build's self-check. Each section says what was
+counted and whether it passed. The Nevada section is for comparing with your county maps.
+
+4. FINDTREATMENT.GOV LISTINGS
+  rows returned by 51 state queries: 27,506
+  unique listings after de-duplication (name+street+ZIP+type): 26,642
+  unique street addresses (locations) among placed listings: 18,908  (one place often holds both a mental health and a substance use listing)
+  placed in a county: 26,557 (99.7%)  methods: {'point_in_polygon': 24885, 'zip_to_county': 1662, 'unassigned': 85, 'zip_to_county_after_state_mismatch': 10}
+  coordinates pointed to a county in another state, re-placed by ZIP: 10
+  listing types: {'MH': 12637, 'SA': 12047, 'OTP': 1958}
+  listings coded 'Pregnant/postpartum women': 4,600
+  unassigned listings (85), mostly P.O. box ZIPs; first 10:
+    Set Free Alaska | PO BOX 876741 | Wasilla, AK 99687
+    Resilience Reach 907 | P.O. Box 876646 | Wasilla, AK 99687
+    Meadows | 3400 Sabin Brown Road | Wickenburg, AZ 85358
+    Meadows | 3400 Sabin Brown Road | Wickenburg, AZ 85358
+    Intermountain Centers for | P.O. Box 86537 | Tucson, AZ 85754
+    Intermountain Centers for | P.O. Box 86537 | Tucson, AZ 85754
+    Intermountain Centers for Human Develo | P.O. Box 86537 | Tucson, AZ 85754
+    SouthEastern AZ Behav Hlth Servs Inc | 1609 South 1st Avenue | Safford, AZ 85548
+    Centers for Youth and Families | P.O. Box 251950 | Monticello, AR 71657
+    Birch Tree Communities Inc | P.O. Box 1589 | Benton, AR 72018
+
+5. HRSA HEALTH CENTER SITES
+  active sites in file: 19,528; counted under coding rules: 11,992
+  placement: {'hrsa_county_code': 11928, 'unplaced_no_address_in_hrsa_file': 58, 'unassigned': 5, 'zip_to_county': 1}
+  in the 50 states + DC: 11,769 sites at 11,219 distinct addresses
+  in Puerto Rico and territories: 160 with a territory county code, plus 5 in the Marshall Islands and Palau with none
+  no address published by HRSA (state 'XX'), cannot be placed: 58
+
+6. NPPES CLINICIANS
+  NPPES records read: 9,891,116; individual (type 1): 7,540,866
+  kept by primary taxonomy: 1,565,614; U.S. practice address: 1,564,724
+  ZIP-to-county: {'zcta_largest_land': 1528728, 'ct_zcta_point_to_planning_region': 23557, 'unmatched': 12439}
+  in territories (outside panel): 8,034
+  by group: {'bh_therapist': 1198337, 'family_medicine': 157532, 'bh_prescriber': 124593, 'obstetric': 84262}
+  External check vs AHRF (AMA Physician Masterfile 2023, patient-care MDs):
+    obstetric clinicians vs AHRF OB/GYN: correlation of log counts r = 0.925 (n=3135)
+    BH prescribers vs AHRF psychiatrists: r = 0.885 (n=3135)
+    Note: NPPES group includes midwives and NPs; AHRF counts MDs only, so NPPES totals run higher.
+
+7. NEVADA CAPACITY VALUES
+      county_name  tx_listings_all  tx_locations_all  ppw_sud_facilities  hc_sites  ob_clinicians  bh_prescribers  bh_therapists  family_medicine_physicians
+      Carson City               14                10                   4         1             17              19            229                          39
+ Churchill County                5                 3                   1         0              4               3            101                          18
+     Clark County              147               108                  23        38            414             673           6453                         867
+   Douglas County                2                 2                   0         0              4               6             86                          24
+      Elko County                3                 2                   1         4              7               7             70                           9
+ Esmeralda County                0                 0                   0         0              0               0              0                           0
+    Eureka County                0                 0                   0         0              0               0              0                           1
+  Humboldt County                3                 2                   0         0              2               1             22                           3
+    Lander County                1                 1                   0         1              0               1              3                           3
+   Lincoln County                1                 1                   0         0              0               0              5                           2
+      Lyon County               13                 7                   5         0              1               0             62                           7
+   Mineral County                0                 0                   0         0              0               0              6                           3
+       Nye County               12                 9                   2         3              3               4             94                          16
+  Pershing County                1                 1                   0         0              0               1              5                           7
+    Storey County                0                 0                   0         1              2               2             19                          10
+    Washoe County               26                20                   6        12             99             161           2043                         248
+White Pine County                1                 1                   0         0              0               1             36                           4
+
+  Nevada listings coded Pregnant/postpartum women (42):
+    Churchill County   SA  New Frontier | 1490 Grimes Street, Fallon
+    Clark County       SA  ABC Therapy LLC | 7 Water Street, Henderson
+    Clark County       SA  ABC Therapy LLC | 730 North Eastern Avenue, Las Vegas
+    Clark County       SA  BHG Cheyenne Treatment Center | 3470 West Cheyenne Avenue, North Las Vegas
+    Clark County       SA  BHG Desert Inn Treatment Center | 3050 East Desert Inn Road, Las Vegas
+    Clark County       SA  BHG McDaniel Treatment Center | 2290 McDaniel Street, North Las Vegas
+    Clark County       SA  Better Choice Treatment Center | 198 East Ebb Tide Circle, Las Vegas
+    Clark County       SA  Care Clinic | 1050 East Flamingo Road, Las Vegas
+    Clark County       SA  Desert Parkway Behav Healthcare Hosp | 3247 South Maryland Parkway, Las Vegas
+    Clark County       SA  Desert Treatment Clinic LLC | 2598 Windmill Pkwy, Henderson
+    Clark County       SA  Dr Miriam/Sheldon G Adelson | 3661 South Maryland Parkway, Las Vegas
+    Clark County       SA  Henderson Comprehensive Treatment Ctr | 1536 North Boulder Highway, Henderson
+    Clark County       SA  Human Behavior Institute | nan, Las Vegas
+    Clark County       SA  Las Vegas Comprehensive Treatment Ctr | 2887 South Maryland Parkway, Las Vegas
+    Clark County       SA  Legacy Health and Wellness | 2921 North Tenaya Way, Las Vegas
+    Clark County       SA  Mind Body Solutions | 2725 South Jones Boulevard, Las Vegas
+    Clark County       SA  Multicultural Csl Collaborative Inc | 2920 South Jones Boulevard, Las Vegas
+    Clark County       SA  New Beginnings Counseling Centers Inc. | 3675 Pecos McLeod, Las Vegas
+    Clark County       SA  Partida Corona Medical Center | 2950 East Flamingo Road, Las Vegas
+    Clark County       SA  Southwest Vegas Comprehensive Trt Ctr | 6080 South Fort Apache Road, Las Vegas
+    Clark County       SA  THRIVE  Solutions | 5584 South Fort Apache Road, Las Vegas
+    Clark County       SA  Vegas Treatment Center | 2121 East Flamingo Road, Las Vegas
+    Clark County       SA  Vogue Recovery Center | 4011 McLeod Drive, Las Vegas
+    Clark County       SA  WestCare Nevada Inc | 5659 Duncan Drive, Las Vegas
+    Elko County        SA  Vitality Integrated Programs Elko | 215 Bluffs Avenue, Elko
+    Lyon County        SA  Rural Nevada Counseling | 720 South Main Street, Yerington
+    Lyon County        SA  Rural Nevada Counseling | 801 Overland Loop, Dayton
+    Lyon County        SA  Rural Nevada Counseling | 3595 U.S. Highway 50, Silver Springs
+    Lyon County        SA  Rural Nevada Counseling | 415 U.S. Highway 95-A, Fernley
+    Lyon County        SA  Vitality Integrated Programs Dayton | 120 Pike Street, Dayton
+    Nye County         SA  Living Free Health and Fitness | 2050 NV Highway 160, Pahrump
+    Nye County         SA  New Beginnings Counseling Centers Inc | 2280 Calavada Boulevard, Pahrump
+    Washoe County      SA  BHG Reno Treatment Center | 160 Hubbard Way, Reno
+    Washoe County      SA  Bristlecone Family Resources | 704 Mill Street, Reno
+    Washoe County      SA  Empowerment Center | 7400 South Virginia Street, Reno
+    Washoe County      SA  Life Change Center | 1755 Sullivan Lane, Sparks
+    Washoe County      SA  Quest Counseling and Consulting | 6110 Plumas Street, Reno
+    Washoe County      SA  Vitality Integrated Programs | 1135 Terminal Way, Reno
+    Carson City        SA  Carson City Community Counseling Ctr | 788 Fairview Drive, Carson City
+    Carson City        SA  Carson City Community Counseling Ctr | 205 South Pratt Street, Carson City
+    Carson City        SA  Vitality Integrated Programs | 119 Long Street, Carson City
+    Carson City        SA  Vitality Unlimited | 900 East Long Street, Carson City
+

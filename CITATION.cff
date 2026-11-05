@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this panel, please cite it as below. Each release has its own DOI on Zenodo."
+type: dataset
+title: "U.S. County Perinatal Behavioral Health Need and Capacity Panel"
+version: "0.1.0"
+date-released: "2026-11-04"
+authors:
+  - family-names: "Emesobum"
+    given-names: "Munachimso A."
+    orcid: "https://orcid.org/0009-0002-7506-2153"
+    email: "emesobumm@gmail.com"
+    affiliation: "Independent Researcher, Nevada, USA"
+license: CC-BY-4.0
+repository-code: "https://github.com/memesobum/perinatal-bh-panel"
+abstract: >-
+  An open, versioned county-level table for every U.S. county that sets measures of mental health and substance
+  use need among pregnant and postpartum women beside the treatment capacity available to them, with rural and
+  frontier counties flagged. Built only from open federal sources.
+keywords:
+  - perinatal mental health
+  - maternal behavioral health
+  - substance use treatment
+  - county
+  - rural health
+  - frontier
+  - health workforce
+  - open data

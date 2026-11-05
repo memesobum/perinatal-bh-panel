@@ -1,0 +1,15 @@
+{
+  "version": "0.1.0",
+  "build_date": "2026-11-04",
+  "n_counties": 3144,
+  "n_states": 51,
+  "n_metro": 1164,
+  "n_rural": 1563,
+  "n_frontier": 417,
+  "births_total": 3642063,
+  "n_births_census_fallback": 48,
+  "n_births_fallback_ct": 9,
+  "n_births_fallback_suppressed": 39,
+  "n_places_prior_release": 187,
+  "n_small_births": 97
+}

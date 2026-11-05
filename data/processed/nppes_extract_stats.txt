@@ -1,0 +1,9 @@
+source_file=NPPES_Data_Dissemination_November_2026_V2.zip
+rows_read=9891116
+type1=7540866
+type1_active=7540738
+kept=1565614
+group_bh_therapist=1198914
+group_family_medicine=157727
+group_bh_prescriber=124648
+group_obstetric=84325
