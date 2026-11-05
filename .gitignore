@@ -15,3 +15,8 @@ paper/*.fdb_latexmk
 paper/*.out
 paper/build.log
 preprint_latex_source.zip
+paper/word/chk/
+paper/word/refx/
+paper/word/*_raw.docx
+paper/word/raw.docx
+paper/word/*.pdf

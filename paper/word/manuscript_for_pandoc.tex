@@ -1,0 +1,423 @@
+\documentclass{article}
+\usepackage{amsmath}\usepackage{graphicx}\usepackage{booktabs}
+\begin{document}
+\begin{center}
+\textbf{Where Perinatal Behavioral Health Need Outpaces Treatment Capacity: An Open County-Level Need and Capacity Panel for the United States}
+\end{center}
+
+\begin{center}
+Munachimso A. Emesobum¹˒*
+\end{center}
+
+¹ Independent Researcher, Nevada, USA
+
+* Correspondence: emesobumm@gmail.com; ORCID: https://orcid.org/0009-0002-7506-2153
+
+\textbf{Abstract:} Mental health conditions, including substance use disorders, are a leading underlying cause of pregnancy-related death in the United States, yet agencies deciding where to add perinatal screening, referral, and treatment have had no open national table that sets county need beside county treatment capacity. We built the U.S. County Perinatal Behavioral Health Need and Capacity Panel, a versioned, fully reproducible county-level dataset for all 3,144\ counties and county-equivalents of the 50 states and the District of Columbia, assembled only from open federal sources. Need is described by births (NCHS natality via the Area Health Resources Files), women aged 15--44, model-based adult depression prevalence (CDC PLACES), and the CDC/ATSDR Social Vulnerability Index. Capacity is described by 26,642\ SAMHSA FindTreatment.gov treatment listings (99.7\% placed in a county) coded for pregnant/postpartum (PPW) programs, 11,769\ HRSA health center sites, and 1,544,251\ obstetric, behavioral health, and family medicine clinicians identified by NUCC taxonomy codes in the CMS NPPES registry. Each county receives percentile-based need and capacity scores, a need-minus-capacity gap score, rural and frontier flags, data-year fields, and small-number flags. We find that 1,793\ counties (57.0\%), home to 12.7\% of U.S. births, have no substance use treatment listing with a PPW program; the share rises from 35.1\% of metro to 65.5\% of rural and 86.6\% of frontier counties. The PPW program field exists only for substance use listings, so open data cannot identify perinatal-specific mental health facilities. Need and capacity are only weakly related across counties (Spearman ρ = 0.24), and 107\ counties combine top-quartile need with bottom-quartile capacity, 72\ of them rural. Clinician counts agree closely with independent AMA-based counts (log-scale r = 0.93 obstetric, 0.89 psychiatric), and gap rankings are robust to eight alternative specifications (Spearman ρ ≥ 0.973). The panel, code, codebook, and provenance log are openly released in three versioned parts.
+
+\textbf{Keywords:} perinatal mental health, maternal substance use, treatment capacity, health workforce, rural and frontier health, open data, county health indicators
+
+\section*{I. Introduction}
+
+Mental health conditions, a category that in U.S. maternal mortality review includes suicide, overdose related to substance use disorder, and other deaths a committee judges related to a mental health condition or substance use disorder, are a leading underlying cause of pregnancy-related death. Among the 511 pregnancy-related deaths with an identified underlying cause shared by maternal mortality review committees (MMRCs) in 38 states for 2020, 115 (22.5\%) were attributed to mental health conditions, the most frequent underlying cause in that year~[1]. Perinatal mood and anxiety disorders are also common among the living: in 2018, 13.2\% of respondents to the Pregnancy Risk Assessment Monitoring System reported postpartum depressive symptoms, with prevalence exceeding 20\% in several subgroups~[2]. Untreated perinatal mood and anxiety disorders were estimated to cost \$14 billion for the 2017 U.S. birth cohort from conception to five years postpartum~[3].
+
+Clinical guidance has moved toward universal screening. The American College of Obstetricians and Gynecologists recommends screening for perinatal depression and anxiety at the initial prenatal visit, later in pregnancy, and postpartum, and recommends that screening be implemented with systems in place for timely assessment, treatment, and follow-up~[4]. Screening without somewhere to refer has limited value, which is why perinatal psychiatry access programs such as MCPAP for Moms were designed to build the capacity of frontline obstetric clinicians to treat and refer~[5]. Where to place referral and treatment capacity is therefore a practical, local question for state and county agencies.
+
+The evidence available to answer it is fragmented. Studies using the National Plan and Provider Enumeration System (NPPES) show that psychiatrists, psychologists, and psychiatric nurse practitioners are unevenly distributed across Census divisions and are scarcer per capita in non-metropolitan counties~[6]. Rural counties lost hospital-based obstetric services through the 2004--2014 period, leaving more than half of rural counties without them~[7], and losses were associated with adverse birth outcomes~[8]. March of Dimes classifies 35.1\% of U.S. counties (1,104) as maternity care deserts with no birthing facility or obstetric clinician~[9]. For substance use treatment, facility surveys show that less than a quarter of specialty programs offered PPW programming in 2018~[10], that PPW programs differ from other programs in medication and ancillary services~[11], and that only about one-third of facilities in the 2022 national survey reported a perinatal program~[12]. A field experiment found that pregnant callers were less likely than non-pregnant callers to obtain an appointment with a buprenorphine prescriber~[13].
+
+None of these sources sets perinatal behavioral health need and treatment capacity side by side for every county in an open, reusable form. Maternity care desert classifications concern obstetric care, workforce studies concern clinicians alone, and facility surveys report national or state aggregates. In earlier work with the Larson Institute, the author mapped OB/GYN providers, federally qualified health centers, certified community behavioral health clinics, women's set-aside programs, and home visiting programs across Nevada's 17 counties; that project recorded that county-level overdose and emergency department data could not be obtained through a state data request. The experience motivated a national version built only from data anyone can download.
+
+This paper describes that resource and its first findings. Our contributions are:
+\begin{enumerate}
+\item an open, versioned county panel for all 3,144\ U.S. counties with need measures, a geocoded capacity inventory, and need-to-capacity gap scores, released in three parts with codebook, coding rules, quality report, and file-level provenance;
+\item a documented, reproducible route to bulk FindTreatment.gov listings and a transparent NPPES taxonomy coding scheme for perinatal-relevant clinicians;
+\item a national description of where PPW substance use treatment, behavioral health prescribers, obstetric clinicians, and health center sites are absent, by metro, rural, and frontier class and by state;
+\item external validation of clinician counts and eight sensitivity analyses of the gap score, including a quantified small-county instability that users must respect.
+\end{enumerate}
+
+\section*{II. Data and Methods}
+
+\subsection*{A. Design and unit of analysis}
+
+The unit is the county or county-equivalent in the Census Bureau's Vintage 2024 population estimates for the 50 states and the District of Columbia (3,144\ units). Connecticut appears as its nine planning regions, which replaced its eight counties as statistical equivalents in 2022. Puerto Rico and the territories are excluded from this version. All inputs are U.S. federal public-domain products except the NUCC taxonomy code set, which is free to use with attribution (Table~I); Figure~1 summarizes the build. Every downloaded file is logged with its URL, access date (4~November 2026), size, and SHA-256 fingerprint.
+
+\begin{table}
+\centering
+\caption{\textbf{Table I.} Data sources. All were accessed on 4 November 2026. AHRF: Area Health Resources Files; PEP: Population Estimates Program; BRFSS: Behavioral Risk Factor Surveillance System; ACS: American Community Survey.}
+
+\begin{tabular}{@{}p{0.29\textwidth}p{0.145\textwidth}p{0.18\textwidth}p{0.31\textwidth}@{}}
+\toprule
+Source (publisher) & Vintage & Used for & Key variables \\
+\midrule
+AHRF county file (HRSA)~[16] & 2024--2025 & births; external validation & \texttt{births\_3yr\_avg\_23}; AMA OB/GYN and psychiatrist counts \\
+Population estimates (Census)~[17] & Vintage 2024 & universe; women 15--44; births & \texttt{AGE1544\_FEM}; \texttt{BIRTHS2024}; \texttt{POPESTIMATE2024} \\
+PLACES county data (CDC)~[14] & 2025 release (BRFSS 2023) & adult depression; mental distress & \texttt{DEPRESSION}, \texttt{MHLTH} crude and age-adjusted \\
+Social Vulnerability Index (CDC/ATSDR)~[15] & 2022 (ACS 2018--2022) & social vulnerability & \texttt{RPL\_THEMES}, theme percentiles \\
+Rural-Urban Continuum Codes (USDA ERS)~[18] & 2023 & rural classification & RUCC 1--9 \\
+Gazetteer, boundaries, ZCTA file (Census)~[19] & 2024; 2020 & frontier density; geocoding & land area; county polygons; ZCTA--county overlap \\
+FindTreatment.gov locator API (SAMHSA)~[20] & live directory & treatment listings & type; services incl.\ ``Pregnant/postpartum women'' \\
+Health center service delivery sites (HRSA)~[21] & live file & health center capacity & site status, type, location, setting, county \\
+NPPES downloadable file V.2 (CMS)~[22] & November 2026 & clinicians & entity type, primary taxonomy, practice ZIP \\
+Health Care Provider Taxonomy (NUCC)~[23] & v26.1 & clinician grouping & taxonomy code definitions \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=6.4in]{figures/fig1_pipeline.png}
+\caption{\textbf{Figure 1.} Build pipeline. Open need and capacity sources are harmonized to the Census Vintage 2024 county universe and released as three linked, versioned tables that share the five-digit county code.}
+
+\end{figure}
+
+\subsection*{B. Need measures}
+
+\textit{1. Births.} 
+Annual births are the NCHS three-year average of resident births for 2021--2023 as published in the AHRF 2024--2025 (\texttt{births\_3yr\_avg\_23}). Where that value is unavailable, the Census estimate of births from July 2023 to June 2024 is used. Fallback applies to 48\ counties: Connecticut's nine planning regions (AHRF reports NCHS births for the former counties) and 39\ small counties where NCHS figures are suppressed. A source field and a years field accompany every value.
+
+\textit{2. Women of reproductive age.} 
+Female residents aged 15--44 on 1~July 2024 come from the Vintage 2024 county characteristics file. The general fertility rate is GFRᵢ = 1000Bᵢ/Wᵢ, where Bᵢ is births and Wᵢ is women aged 15--44 in county i.
+
+\textit{3. Depression and mental distress.} 
+No open source reports perinatal depression for every county. We therefore use the model-based crude prevalence of adults ever told they have a depressive disorder from CDC PLACES, which applies multilevel regression and poststratification to BRFSS data~[14]. Age-adjusted prevalence and frequent mental distress are also carried. The 2025 PLACES release omits Kentucky and Pennsylvania; their 187\ counties take values from the 2024 release (BRFSS 2022) and are flagged. One county (Loving, TX) has no PLACES value. The product Bᵢ × pᵢ/100, with pᵢ the depression prevalence, is carried as a scale indicator and is explicitly not an estimate of perinatal cases.
+
+\textit{4. Social vulnerability.} 
+The overall CDC/ATSDR Social Vulnerability Index percentile (0 least, 1 most vulnerable) and its four theme percentiles come from the 2022 county file~[15].
+
+\subsection*{C. Capacity measures}
+
+\textit{1. Treatment listings.} 
+FindTreatment.gov has no single bulk file. Its public locator API returns all listings in a state when queried with the state identifier documented in the developer guide~[20]. We issued 51 state queries without a service-type filter, so substance use (SA), mental health (MH), and opioid treatment program (OTP) listings were all returned; every query returned its full reported count (27,506\ rows). Exact duplicates on name, street, ZIP, and type were removed (26,642\ unique listings). Listings were placed in counties by point-in-polygon on the 2024 Census boundaries; listings without coordinates were placed by ZIP code (Sec.~II.C.4). A state check re-placed by ZIP any listing whose coordinates fell in another state's county, which corrected 10\ listings geocoded to same-named towns elsewhere. In total, 99.7\% of listings were placed; 85\ (mostly P.O.~box ZIP codes) were not.
+
+A listing is coded as a PPW program when its ``Special Programs/Groups Offered'' field contains ``Pregnant/postpartum women.'' This field is present only on SA listings: none of the 12,637\ MH listings or 1,958\ OTP listings carries it. The facility capacity measure is therefore PPW \emph{substance use} treatment. Supporting flags record child care for clients' children, residential beds for children, Medicaid acceptance, and medications for opioid use disorder (MOUD).
+
+\textit{2. Health center sites.} 
+From HRSA's file of health center service delivery and look-alike sites we count active, permanent service delivery sites, excluding administrative-only, seasonal, mobile, school, and correctional sites. Counties come from HRSA's county code, with one blank code placed by ZIP. In total, 11,769\ sites in the 50 states and DC are counted, at 11,219\ distinct addresses; 58\ sites have no published address and cannot be placed.
+
+\textit{3. Clinicians.} 
+From the November 2026 NPPES file (9.89 million records) we keep active individual providers (entity type 1) and assign each to one group by primary taxonomy (the code flagged primary, otherwise the first listed) at the primary practice ZIP (Table~II). Family physicians are reported but not added to obstetric capacity, because NPPES cannot show which of them provide obstetric care. Gynecology-only subspecialties, lay midwives, school-based and pastoral counselors, and child and adolescent psychiatry are excluded by design.
+
+\begin{table}
+\centering
+\caption{\textbf{Table II.} Clinician groups by NUCC taxonomy (v26.1) and national counts placed in panel counties.}
+
+\begin{tabular}{@{}p{1.6cm}p{4.6cm}r@{}}
+\toprule
+Group & Taxonomy (examples of codes) & n \\
+\midrule
+Obstetric & OB/GYN 207V00000X; Obstetrics 207VX0000X; Maternal-fetal medicine 207VM0101X; Advanced practice midwife 367A00000X; Midwife 176B00000X; NP OB/GYN, women's health, perinatal; CNS women's health, perinatal & 82,517 \\
+BH prescriber & Psychiatry 2084P0800X; addiction psychiatry; psychosomatic medicine; addiction medicine (five boards); psychiatric/mental health NP 363LP0808X and CNS & 122,193 \\
+BH therapist & Psychologist 103T*; clinical social worker 1041C0700X; counselor 101Y*, mental health, addiction, professional; marriage and family therapist 106H00000X & 1,184,102 \\
+Family medicine & Family Medicine 207Q00000X (reported only) & 155,439 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textit{4. ZIP-to-county assignment.} 
+ZIPs are treated as ZIP Code Tabulation Areas (ZCTAs) and assigned to the county containing the largest share of the ZCTA's land area, using the 2020 Census relationship file. Because that file still uses Connecticut's former counties, Connecticut ZCTAs are assigned to planning regions by their 2024 Gazetteer interior point. ZIPs that are not ZCTAs remain unmatched (0.8\% of clinicians).
+
+\subsection*{D. Rural and frontier classification}
+Counties with 2023 Rural-Urban Continuum Codes 4--9 (nonmetro) are rural~[18]. Counties with fewer than six residents per square mile of land are frontier, the traditional population-density definition~[24]; frontier takes precedence. The resulting classes contain 1,164\ metro, 1,563\ rural, and 417\ frontier counties.
+
+\subsection*{E. Need, capacity, and gap scores}
+Let xᵢₖ be component k for county i, and let P(xᵢₖ) ∈ (0,100] be its national percentile rank (average ranks for ties, among counties with a value). Need components are adult depression prevalence and overall SVI; capacity components are, per 1,000 births, PPW SUD listings, behavioral health clinicians (prescribers plus therapists), obstetric clinicians, and health center sites. Then
+\begin{align}
+N_i &= \frac{1}{|K_N|}\sum_{k\in K_N} P(x_{ik}), \qquad C_i = \frac{1}{|K_C|}\sum_{k\in K_C} P(x_{ik}),\\
+G_i &= N_i - C_i,\qquad G_i\in[-100,100].
+\end{align}
+A positive gap means a county ranks higher on need than on capacity. A county is flagged high need, low capacity (HNLC) when Nᵢ is in the top quartile and Cᵢ in the bottom quartile nationally. Counties with zero births (one county) receive no capacity score. Scores are relative ranks, not statements of absolute adequacy.
+
+\subsection*{F. Small numbers}
+Following the CDC WONDER convention that rates based on 20 or fewer events are unreliable~[25], counties with fewer than 20 births (97\ counties) are flagged, as are counties with one or two PPW listings. Section~III.H quantifies the resulting instability.
+
+\subsection*{G. Quality assurance, validation, and sensitivity analyses}
+The pipeline writes a quality report with row counts at each stage, join and geocoding match rates, range checks, and named spot checks; the author verified Nevada values against his county maps and checked extreme and randomly selected counties against source websites. As external validation, NPPES obstetric clinicians and behavioral health prescribers were compared with AHRF counts of patient-care OB/GYN physicians and psychiatrists from the AMA Physician Masterfile (2023)~[16]. Eight alternative specifications of the gap score were compared with the baseline using Spearman correlation and the Jaccard overlap of HNLC sets (Table~V).
+
+\subsection*{H. Statistical analysis and reproducibility}
+We report counts, percentages, and medians, and use Kruskal--Wallis tests for differences in gap score across classes, a χ² test for the absence of PPW programs by class, Spearman correlation for need--capacity association, and a Mann--Whitney test comparing need in counties with and without PPW programs. Analyses used Python 3.13 (pandas, GeoPandas, SciPy; figures in Matplotlib and seaborn). Numbered scripts rebuild every table from the public sources; every number in this paper is written to a statistics file and inserted into the manuscript programmatically. Claude (Anthropic), a large language model, was used to assist with writing analysis code, data handling, and drafting text; the author made every measurement decision, verified results against the source data and his Nevada county maps, checked the final text for errors, and takes full responsibility for the content.
+
+\section*{III. Results}
+
+\subsection*{A. Panel overview}
+The panel covers 3,144\ counties with 3,642,063\ births per year (Table~III). Metro counties hold 86.6\% of births, rural counties 12.7\%, and frontier counties 0.8\%. Every county has births, women aged 15--44, SVI, RUCC, and land area; one lacks depression prevalence.
+
+\begin{table}
+\centering
+\caption{\textbf{Table III.} County characteristics by rurality class. BH: behavioral health; PPW SUD: substance use treatment listing with a pregnant/postpartum women program. Scores are national percentile ranks (0--100).}
+
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+ & Metro & Rural & Frontier & All \\
+\midrule
+Counties & 1,164 & 1,563 & 417 & 3,144 \\
+Births per year & 3,152,315 & 461,953 & 27,795 & 3,642,063 \\
+Share of U.S. births (\%) & 86.6 & 12.7 & 0.8 & 100.0 \\
+Women aged 15--44 & 59,278,483 & 7,695,613 & 428,770 & 67,402,866 \\
+Adult depression, median (\%) & 23.2 & 23.5 & 20.9 & 23.0 \\
+SVI overall, median & 0.47 & 0.56 & 0.34 & 0.50 \\
+No PPW SUD program (\% of counties) & 35.1 & 65.5 & 86.6 & 57.0 \\
+No behavioral prescriber (\%) & 11.2 & 30.3 & 72.4 & 28.8 \\
+No obstetric clinician (\%) & 16.5 & 36.7 & 77.2 & 34.6 \\
+No health center site (\%) & 18.6 & 30.6 & 65.9 & 30.8 \\
+BH clinicians per 1,000 births, median & 219.5 & 127.8 & 70.0 & 155.4 \\
+Obstetric clinicians per 1,000 births, median & 14.3 & 6.8 & 0.0 & 7.9 \\
+Need score, median & 49.5 & 56.5 & 35.6 & 51.2 \\
+Capacity score, median & 58.8 & 47.7 & 33.8 & 50.4 \\
+Gap score, median & −7.9 & 6.9 & −1.6 & −0.1 \\
+High need, low capacity (counties) & 23 & 72 & 12 & 107 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{B. Need}
+Median adult depression prevalence was 23.2\% in metro, 23.5\% in rural, and 20.9\% in frontier counties; median SVI was 0.47, 0.56, and 0.34. The two need components were nearly uncorrelated across counties (Spearman ρ = 0.04), so they carry distinct information. Frontier counties therefore had the lowest median need score (35.6, against 56.5\ rural and 49.5\ metro), a pattern that reflects lower modelled depression and lower measured vulnerability in sparsely settled counties of the Great Plains and the West, rather than an absence of need.
+
+\subsection*{C. Capacity}
+Placed listings comprised 4,585\ PPW SUD listings at 4,516\ addresses, 38.2\% of placed SA listings. Of PPW listings, 87.2\% accepted Medicaid and 78.2\% offered MOUD, but only 7.9\% offered child care for clients' children and 4.3\% residential beds for children. The clinician inventory placed 82,517\ obstetric clinicians, 122,193\ behavioral health prescribers, 1,184,102\ behavioral health therapists, and 155,439\ family physicians in panel counties. Median behavioral health clinicians per 1,000 births fell from 219.5\ in metro to 127.8\ in rural and 70.0\ in frontier counties; the median frontier county had no obstetric clinician (0.0\ per 1,000 births).
+
+\subsection*{D. Counties without services}
+1,793\ counties (57.0\%) had no PPW SUD listing; they account for 461,220\ births a year, 12.7\% of the national total. Absence rose steeply with rurality (Figure~2): 35.1\% of metro, 65.5\% of rural, and 86.6\% of frontier counties (χ²₂ = 423.9, p < 10⁻⁹²). In absolute terms, births in such counties were split nearly evenly between metro (211,647) and rural (231,188) counties, with 18,385\ in frontier counties. 905\ counties had no behavioral health prescriber, 1,088\ no obstetric clinician, and 969\ no counted health center site. 604\ counties, with 50,457\ births a year, had none of a PPW SUD listing, a behavioral health prescriber, or an obstetric clinician.
+
+\begin{figure}
+\centering
+\includegraphics[width=3.9in]{figures/fig3_lacking_by_class.png}
+\caption{\textbf{Figure 2.} Share of counties with no in-county capacity of each type, by rurality class. PPW SUD: substance use treatment listing with a pregnant/postpartum women program.}
+
+\end{figure}
+
+\subsection*{E. Need, capacity, and gap scores}
+Need and capacity were weakly and positively associated (Spearman ρ = 0.24, p < 10⁻⁴¹; Figure~4); each need component correlated with capacity at ρ\approx0.19. Counties without a PPW listing had lower median need scores than counties with one (48.8\ vs.\ 54.8; Mann--Whitney p < 10⁻¹⁴), consistent with programs locating where measured need and population are larger. Gap scores differed by class (Kruskal--Wallis H = 182.6, p < 10⁻³⁹): the median was -7.9\ in metro, 6.9\ in rural, and -1.6\ in frontier counties.
+
+The national map (Figure~3) shows positive gaps concentrated across the lower Mississippi Valley and the Mid-South (state median gap highest in Louisiana and Tennessee), Alabama, Texas, Arkansas, Oklahoma, Kentucky, and Missouri, and negative gaps across the Northeast and Mid-Atlantic, Hawaii, Alaska, and Wyoming. 107\ counties met the HNLC definition: 72\ rural, 12\ frontier, and 23\ metro. They lay in 22\ states, led by TN (22), TX (21), KY (10), AR (8), AL (7). The 15 largest gaps (Table~IV) all occurred in counties with at least 20 births, none of which had a PPW SUD listing.
+
+\begin{figure}
+\centering
+\includegraphics[width=6.4in]{figures/fig2_gap_map.png}
+\caption{\textbf{Figure 3.} Gap score (need percentile minus capacity percentile) by county. Red: need ranks above capacity; blue: capacity ranks above need. Alaska and Hawaii are shown as insets, not to scale. Counties with fewer than 20 births are unstable (Sec.~III.H).}
+
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=3.9in]{figures/fig4_need_vs_capacity.png}
+\caption{\textbf{Figure 4.} Need score against capacity score for each county. Dashed lines mark the top need quartile and bottom capacity quartile; the shaded corner holds high-need, low-capacity counties. The vertical band at the left edge is the tie among counties with no capacity of any measured type.}
+
+\end{figure}
+
+\begin{table}
+\centering
+\caption{\textbf{Table IV.} The 15 counties with the largest gap scores. Dep.: adult depression prevalence; PPW: PPW SUD listings; BH: behavioral health clinicians; OB: obstetric clinicians. Need and gap are percentile-based scores.}
+
+\begin{tabular}{@{}rllrrrrrrrr@{}}
+\toprule
+\# & County & Class & Births & Dep.\,\% & SVI & PPW & BH & OB & Need & Gap \\
+\midrule
+1 & Mahnomen, MN & rural & 77 & 26.6 & 0.96 & 0 & 2 & 0 & 90.6 & +72.8 \\
+2 & Crockett, TN & metro & 164 & 27.9 & 0.72 & 0 & 2 & 0 & 82.2 & +65.3 \\
+3 & Lauderdale, TN & rural & 285 & 27.9 & 0.92 & 0 & 9 & 0 & 92.5 & +64.3 \\
+4 & Jefferson, OK & rural & 68 & 25.4 & 0.81 & 0 & 0 & 0 & 78.2 & +62.2 \\
+5 & McDonald, MO & rural & 326 & 26.5 & 0.89 & 0 & 9 & 0 & 86.8 & +59.8 \\
+6 & Newton, TX & rural & 113 & 25.0 & 0.85 & 0 & 4 & 0 & 78.2 & +59.5 \\
+7 & Jack, TX & rural & 91 & 24.0 & 0.94 & 0 & 3 & 0 & 77.7 & +59.3 \\
+8 & DeKalb, TN & rural & 250 & 30.1 & 0.80 & 0 & 10 & 0 & 88.8 & +59.1 \\
+9 & Hopewell city, VA & metro & 321 & 24.1 & 0.88 & 0 & 0 & 0 & 75.1 & +59.1 \\
+10 & Rhea, TN & rural & 384 & 30.2 & 0.72 & 0 & 12 & 0 & 85.1 & +58.7 \\
+11 & Sequatchie, TN & metro & 181 & 31.3 & 0.50 & 0 & 2 & 0 & 75.0 & +58.2 \\
+12 & Henderson, TN & rural & 307 & 29.0 & 0.63 & 0 & 17 & 0 & 78.8 & +58.1 \\
+13 & Tyler, TX & rural & 195 & 24.3 & 0.93 & 0 & 11 & 0 & 78.8 & +58.0 \\
+14 & St. Mary, LA & rural & 605 & 27.3 & 0.91 & 0 & 20 & 2 & 90.5 & +57.3 \\
+15 & Haywood, TN & rural & 193 & 26.7 & 0.89 & 0 & 6 & 0 & 87.4 & +57.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{F. State variation}
+States differed widely in the share of births occurring in counties without a PPW SUD listing (Figure~5). The highest shares were in MS (60.9\%), SD (46.8\%), NE (39.1\%), AR (36.0\%), MO (35.3\%); in CT, DC, DE, HI\ every birth occurred in a county with at least one such listing. PPW SUD listings per 10,000 births ranged from 4.5\ (TX) to 43.8\ (VT), with a state median of 14.8.
+
+\begin{figure}
+\centering
+\includegraphics[width=3.9in]{figures/fig5_states.png}
+\caption{\textbf{Figure 5.} Share of each state's births occurring in counties with no PPW SUD listing. Dashed line: national share. Nevada is highlighted.}
+
+\end{figure}
+
+\subsection*{G. External validation of clinician counts}
+Across 3,135\ matched counties, NPPES obstetric clinicians tracked AHRF OB/GYN physician counts closely (log-scale Pearson r = 0.93, Spearman ρ = 0.86), as did behavioral health prescribers and AHRF psychiatrists (r = 0.89, ρ = 0.79; Figure~6). NPPES totals were higher (81,410\ vs.\ 43,842\ obstetric; 119,808\ vs.\ 37,617\ prescriber), as expected because the NPPES groups include midwives and nurse practitioners and because NPPES records registrations rather than verified active practice. The two sources agreed on whether a county had any such clinician in 80.0\% (obstetric) and 69.1\% (prescriber) of counties.
+
+\begin{figure}
+\centering
+\includegraphics[width=6.4in]{figures/fig6_validation.png}
+\caption{\textbf{Figure 6.} External validation. County counts of NPPES obstetric clinicians against AHRF (AMA Physician Masterfile) OB/GYN physicians (left), and of NPPES behavioral health prescribers against AHRF psychiatrists (right). Axes are log scale after adding one; the dashed line is equality.}
+
+\end{figure}
+
+\subsection*{H. Small-county instability}
+Per-birth ratios are unstable where births are few, and the instability runs in both directions (Figure~7). Most of the 97\ counties with fewer than 20 births score low on capacity because they have no measured capacity at all (median capacity score 21.4, against 67.3\ for the 365\ counties with more than 2,000 births). A few score very high because a single clinician or site becomes a large rate: Storey County, Nevada, with 18 births a year and two obstetric clinicians, has one of the most negative gaps in the country. Expressing capacity per 1,000 women aged 15--44 does not resolve this (gap-rank correlation with baseline ρ = 0.994; Storey's gap moves only to --63.5). Leaving counties with fewer than 20 births unranked removes the artifact while changing the HNLC set modestly (Jaccard 0.87). The released panel ranks every county and flags small counties; users ranking counties against each other should exclude or separately report flagged counties.
+
+\begin{figure}
+\centering
+\includegraphics[width=3.9in]{figures/fig7_small_counties.png}
+\caption{\textbf{Figure 7.} Capacity score against annual births (log scale). Left of the dashed line (fewer than 20 births), scores cluster at the floor or jump high on a single clinician.}
+
+\end{figure}
+
+\subsection*{I. Sensitivity analyses}
+Gap rankings were robust to every alternative (Table~V, Figure~8): Spearman correlations with the baseline were at least 0.973. Counting health centers or PPW programs by address, rather than by site or listing, changed almost nothing. The HNLC set, a threshold on two quartiles, was more sensitive: overlap with the baseline set fell to a Jaccard index of 0.59\ when mental health listings were added to capacity, and was also reduced when prescribers alone represented behavioral health or when frequent mental distress was added to need. Policy use of the HNLC flag should therefore state the specification.
+
+\begin{table}
+\centering
+\caption{\textbf{Table V.} Sensitivity of the gap score. ρ: Spearman correlation with baseline gap ranks (among counties scored in both). HNLC n: high-need, low-capacity counties; overlap and Jaccard against the baseline set of 107.}
+
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Specification & ρ & HNLC n & Overlap & Jaccard \\
+\midrule
+Baseline & 1.000 & 107 & 107 & 1.00 \\
+Capacity per 1,000 women aged 15--44 & 0.994 & 104 & 99 & 0.88 \\
+Counties with <20 births unranked & >0.999 & 110 & 101 & 0.87 \\
+Health centers counted by address & >0.999 & 106 & 104 & 0.95 \\
+PPW programs counted by address & >0.999 & 107 & 107 & 1.00 \\
+Age-adjusted depression & 0.989 & 115 & 99 & 0.80 \\
+Need adds frequent mental distress & 0.975 & 122 & 93 & 0.68 \\
+Capacity adds MH listings & 0.973 & 104 & 78 & 0.59 \\
+Behavioral prescribers only & 0.973 & 110 & 85 & 0.64 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=6.4in]{figures/fig9_sensitivity.png}
+\caption{\textbf{Figure 8.} Sensitivity analyses. Left: rank agreement of alternative gap scores with the baseline. Right: agreement of the alternative high-need, low-capacity sets with the baseline set.}
+
+\end{figure}
+
+\subsection*{J. Nevada}
+Nevada illustrates the national pattern at state scale (Table~VI, Figure~9). Of its 17 counties, 11\ are frontier under the density definition. All 42\ Nevada PPW SUD listings are in seven counties; 10\ counties have none, although they account for only 2.5\% of the state's 32,888\ births, because Clark and Washoe counties hold 89.9\% of births and 69.0\% of PPW listings. 7\ counties have no obstetric clinician and 5\ no behavioral health prescriber. The largest Nevada gaps are in Esmeralda and Eureka, both with fewer than 20 births, followed by Lincoln, Mineral, Humboldt, Pershing, and Lander; Storey's strongly negative gap is the small-number artifact described above. The author's prior Nevada mapping was used to check these values.
+
+\begin{figure}
+\centering
+\includegraphics[width=3.9in]{figures/fig8_nevada.png}
+\caption{\textbf{Figure 9.} Nevada gap scores. Labels give the gap score and the number of PPW SUD listings. Esmeralda, Eureka, and Storey have fewer than 20 births a year.}
+
+\end{figure}
+
+\begin{table}
+\centering
+\caption{\textbf{Table VI.} Nevada county values. HC: health center sites; other abbreviations as in Table~IV. †Fewer than 20 births.}
+
+\begin{tabular}{@{}llrrrrrrrr@{}}
+\toprule
+County & Class & Births & Dep.\,\% & SVI & PPW & HC & OB & BH & Gap \\
+\midrule
+Carson City & metro & 512 & 21.4 & 0.85 & 4 & 1 & 17 & 248 & −20.6 \\
+Churchill & frontier & 280 & 22.0 & 0.63 & 1 & 0 & 4 & 104 & −11.0 \\
+Clark & metro & 24,629 & 20.3 & 0.86 & 23 & 38 & 414 & 7,126 & −8.8 \\
+Douglas & rural & 323 & 18.9 & 0.21 & 0 & 0 & 4 & 92 & −30.0 \\
+Elko & frontier & 676 & 21.5 & 0.62 & 1 & 4 & 7 & 77 & −10.9 \\
+Esmeralda† & frontier & 2 & 20.2 & 0.91 & 0 & 0 & 0 & 0 & +38.8 \\
+Eureka† & frontier & 18 & 23.5 & 0.43 & 0 & 0 & 0 & 0 & +33.2 \\
+Humboldt & frontier & 204 & 21.7 & 0.62 & 0 & 0 & 2 & 23 & +14.1 \\
+Lander & frontier & 61 & 22.8 & 0.58 & 0 & 1 & 0 & 4 & +12.6 \\
+Lincoln & frontier & 52 & 21.2 & 0.57 & 0 & 0 & 0 & 5 & +19.9 \\
+Lyon & metro & 622 & 21.4 & 0.56 & 5 & 0 & 1 & 62 & −1.2 \\
+Mineral & frontier & 33 & 22.3 & 0.55 & 0 & 0 & 0 & 6 & +19.1 \\
+Nye & frontier & 382 & 21.0 & 0.80 & 2 & 3 & 3 & 98 & −17.4 \\
+Pershing & frontier & 42 & 19.6 & 0.68 & 0 & 0 & 0 & 6 & +13.5 \\
+Storey† & metro & 18 & 19.7 & 0.18 & 0 & 1 & 2 & 21 & −64.8 \\
+Washoe & metro & 4,949 & 21.1 & 0.70 & 6 & 12 & 99 & 2,204 & −19.8 \\
+White Pine & frontier & 85 & 21.5 & 0.25 & 0 & 0 & 0 & 37 & −7.6 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{IV. Discussion}
+
+\subsection*{A. Principal findings}
+This panel shows that specialized substance use treatment for pregnant and postpartum women is absent from most U.S. counties, overwhelmingly so in rural and frontier counties, and that about one in eight births occurs in a county without such a program. Because need and capacity are only weakly related across counties, a relative gap score identifies a distinct set of places where measured need is high and every measured form of capacity is thin. Those places cluster in the rural South, Kentucky and Tennessee, and the southern Plains, and most are rural rather than frontier. Frontier counties lack nearly every form of in-county capacity, but their modelled need is also lower, so their median gap is close to zero; for them, the absence flags and travel to care, rather than the gap score, are the relevant measures.
+
+\subsection*{B. Relation to prior work}
+Our finding that PPW programs are present in a minority of SA listings (38.2\%) is consistent with national facility surveys reporting that about a quarter to a third of facilities offer perinatal programming~[10, 12]. Low availability of child care and residential beds for children among PPW programs echoes earlier survey analyses~[11, 12]. The steep rural gradient in behavioral health prescribers and obstetric clinicians agrees with NPPES-based workforce studies~[6] and with documented losses of rural obstetric services~[7--9]. The contribution here is not a new count of any single resource but a single, open county table that holds need and several forms of capacity together, with their data years and flags, so that others can recombine them.
+
+\subsection*{C. Implications}
+For state agencies, the absence flags identify counties where a pregnant woman screened positive for substance use disorder has no specialized program in her county, and the HNLC flag identifies counties where adding referral and treatment capacity would address both high need and low supply. Where in-county programs are unlikely to be sustainable, models that extend specialist reach to frontline obstetric clinicians, such as perinatal psychiatry access programs~[5], and acceptance of pregnant patients by existing MOUD prescribers~[13] are natural levers. Because the PPW field exists only for substance use listings, a direct recommendation to SAMHSA is to collect a comparable perinatal program item from mental health facilities; until then, perinatal mental health capacity cannot be mapped from open facility data.
+
+\subsection*{D. Limitations}
+First, need is measured with stand-ins: adult depression prevalence for all adults and social vulnerability rank counties sensibly but do not measure perinatal depression, anxiety, or substance use directly. Second, the facility measure covers substance use treatment only and rests on self-reported directory entries that may be out of date. Third, NPPES counts are registrations at a primary practice address; they do not establish active practice, Medicaid participation, acceptance of pregnant patients, full-time effort, secondary sites, or telehealth across county lines. Fourth, county lines are not care boundaries; a county without a program may be near one across the line. Fifth, small counties are unstable (Sec.~III.H). Sixth, scores are relative ranks. Seventh, data years differ across measures, from births in 2021--2023 to listings in November 2026, and each column records its year. Eighth, about 0.3\% of listings, 0.8\% of clinicians, and 58\ health center sites could not be placed, and ZIP codes spanning counties are assigned to the county with most of their land. Ninth, home visiting, certified community behavioral health clinics, and women's set-aside programs, all part of the author's Nevada mapping, lack open national site lists suitable for this version. Finally, the territories are excluded.
+
+\subsection*{E. Future work}
+Planned versions will add travel-time capacity within 30 and 60 minutes, smoothed or shrinkage estimates for small counties, state-level perinatal depression context from PRAMS, and annual refreshes released under the same concept DOI.
+
+\section*{V. Conclusions}
+An open, reproducible county panel built only from federal public data can show where perinatal behavioral health need outpaces treatment capacity across the United States. Most counties, and most rural and frontier counties, have no specialized substance use program for pregnant and postpartum women, and a distinct set of mostly rural counties combines high need with low capacity on every measured dimension. We release the panel, code, codebook, coding rules, and provenance so that agencies and researchers can verify, extend, and act on it.
+
+\section*{Data and code availability}
+The panel is released in three versioned parts (need measures; capacity inventory; gap scores) with codebook, coding rules, limitations, quality reports, and provenance logs. Code and data: \url{https://github.com/memesobum/perinatal-bh-panel}; each release is archived on Zenodo with its own DOI, listed in the repository README. All inputs are public and are re-downloaded by the pipeline. Data and documents are licensed CC~BY~4.0 and code MIT.
+
+\section*{Author contributions}
+M.A.E.: conceptualization, methodology, data curation, validation, formal analysis, visualization, writing (original draft, review and editing).
+
+\section*{Use of AI tools}
+Use of AI assistance is described in Sec.~II.H.
+
+\section*{Funding}
+This research received no external funding.
+
+\section*{Institutional review board statement}
+Not applicable. The study used only publicly available aggregate data and public-registry records; released clinician data are aggregated to ZIP and county counts without names or identifiers, and no human subjects were involved.
+
+\section*{Conflicts of Interest}
+The author declares no conflicts of interest.
+
+\section*{References}
+
+[1] Centers for Disease Control and Prevention. Pregnancy-related deaths: data from maternal mortality review committees in 38 U.S. states, 2020. Atlanta, GA: CDC; 2024. \url{https://www.cdc.gov/maternal-mortality/php/data-research/index.html}
+
+[2] B.~L. Bauman, J.~Y. Ko, S.~Cox, D.~V. D'Angelo, L.~Warner, S.~Folger, H.~D. Tevendale, K.~C. Coy, L.~Harrison, and W.~D. Barfield. Vital signs: postpartum depressive symptoms and provider discussions about perinatal depression---United States, 2018. \emph{MMWR Morb. Mortal. Wkly. Rep.}, 69(19):575--581, 2020. doi:10.15585/mmwr.mm6919a2
+
+[3] D.~L. Luca, C.~Margiotta, C.~Staatz, E.~Garlow, A.~Christensen, and K.~Zivin. Financial toll of untreated perinatal mood and anxiety disorders among 2017 births in the United States. \emph{Am. J. Public Health}, 110(6):888--896, 2020. doi:10.2105/AJPH.2020.305619
+
+[4] American College of Obstetricians and Gynecologists. Screening and diagnosis of mental health conditions during pregnancy and postpartum: ACOG Clinical Practice Guideline No.~4. \emph{Obstet. Gynecol.}, 141(6):1232--1261, 2023. doi:10.1097/AOG.0000000000005200
+
+[5] N.~Byatt, K.~Biebel, T.~A. Moore Simas, B.~Sarvet, M.~Ravech, J.~Allison, and J.~Straus. Improving perinatal depression care: the Massachusetts Child Psychiatry Access Project for Moms. \emph{Gen. Hosp. Psychiatry}, 40:12--17, 2016. doi:10.1016/j.genhosppsych.2016.03.002
+
+[6] C.~H.~A. Andrilla, D.~G. Patterson, L.~A. Garberson, C.~Coulthard, and E.~H. Larson. Geographic variation in the supply of selected behavioral health providers. \emph{Am. J. Prev. Med.}, 54(6 Suppl 3):S199--S207, 2018. doi:10.1016/j.amepre.2018.01.004
+
+[7] P.~Hung, C.~E. Henning-Smith, M.~M. Casey, and K.~B. Kozhimannil. Access to obstetric services in rural counties still declining, with 9 percent losing services, 2004--14. \emph{Health Aff.}, 36(9):1663--1671, 2017.
+
+[8] K.~B. Kozhimannil, P.~Hung, C.~Henning-Smith, M.~M. Casey, and S.~Prasad. Association between loss of hospital-based obstetric services and birth outcomes in rural counties in the United States. \emph{JAMA}, 319(12):1239--1247, 2018. doi:10.1001/jama.2018.1830
+
+[9] A.~Stoneburner, R.~Lucas, J.~Fontenot, C.~Brigance, E.~Jones, and A.~L. DeMaria. Nowhere to go: maternity care deserts across the US (Report No.~4). March of Dimes; 2024.
+
+[10] Medicaid and CHIP Payment and Access Commission. Access to treatment for pregnant women with a substance use disorder and infants with neonatal abstinence syndrome. Commission meeting presentation, January 2020.
+
+[11] A.~Meinhofer, J.~M. Hinde, and M.~M. Ali. Substance use disorder treatment services for pregnant and postpartum women in residential and outpatient settings. \emph{J. Subst. Abuse Treat.}, 110:9--17, 2020. doi:10.1016/j.jsat.2019.12.005
+
+[12] B.~N. Lombardi, A.~B. Parisi, H.~Newton, and B.~M. Lombardi. Characteristics of substance use disorder and mental health disorder treatment facilities with perinatal programs. \emph{J. Subst. Use Addict. Treat.}, 209722, 2025.
+
+[13] S.~W. Patrick, M.~R. Richards, W.~D. Dupont, et~al. Association of pregnancy and insurance status with treatment access for opioid use disorder. \emph{JAMA Netw. Open}, 3(8):e2013456, 2020. doi:10.1001/jamanetworkopen.2020.13456
+
+[14] K.~J. Greenlund, H.~Lu, Y.~Wang, K.~A. Matthews, J.~M. LeClercq, B.~Lee, and S.~A. Carlson. PLACES: local data for better health. \emph{Prev. Chronic Dis.}, 19:210459, 2022. doi:10.5888/pcd19.210459
+
+[15] B.~E. Flanagan, E.~W. Gregory, E.~J. Hallisey, J.~L. Heitgerd, and B.~Lewis. A social vulnerability index for disaster management. \emph{J. Homel. Secur. Emerg. Manag.}, 8(1):3, 2011. doi:10.2202/1547-7355.1792
+
+[16] Health Resources and Services Administration. Area Health Resources Files, 2024--2025 county release and technical documentation. \url{https://data.hrsa.gov/data/download?data=AHRF}
+
+[17] U.S. Census Bureau. County population totals and characteristics, Vintage 2024. \url{https://www2.census.gov/programs-surveys/popest/datasets/2020-2024/counties/}
+
+[18] U.S. Department of Agriculture, Economic Research Service. Rural-Urban Continuum Codes, 2023. \url{https://www.ers.usda.gov/data-products/rural-urban-continuum-codes}
+
+[19] U.S. Census Bureau. 2024 Gazetteer files; 2024 cartographic boundary files; 2020 ZCTA to county relationship file. \url{https://www.census.gov/geographies/reference-files.html}
+
+[20] Substance Abuse and Mental Health Services Administration. FindTreatment.gov API documentation, version 1.12, 17 August 2026. \url{https://findtreatment.gov/assets/FindTreatment-Developer-Guide.pdf}
+
+[21] Health Resources and Services Administration. Health center service delivery and look-alike sites, HRSA Data Warehouse. \url{https://data.hrsa.gov/data/download}
+
+[22] Centers for Medicare \& Medicaid Services. NPPES downloadable file, version 2, November 2026. \url{https://download.cms.gov/nppes/NPI_Files.html}
+
+[23] National Uniform Claim Committee. Health Care Provider Taxonomy code set, version 26.1. \url{https://www.nucc.org}
+
+[24] National Center for Frontier Communities. Frontier definitions. \url{https://frontierus.org}
+
+[25] Centers for Disease Control and Prevention. CDC WONDER natality data documentation: reliability of rates. \url{https://wonder.cdc.gov/wonder/help/natality.html}
+\end{document}
