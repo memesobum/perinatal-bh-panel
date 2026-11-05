@@ -8,3 +8,10 @@ dist/
 __pycache__/
 .env
 *.pem
+paper/*.aux
+paper/*.log
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.out
+paper/build.log
+preprint_latex_source.zip

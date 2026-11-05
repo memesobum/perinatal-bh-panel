@@ -24,6 +24,7 @@ Three releases, each with its own DOI, sharing the county key `fips` (Census Vin
 code/            numbered scripts in run order (config.py holds every measurement decision)
 data/raw/        PROVENANCE.txt (raw files are re-downloaded by code/01_fetch.py)
 data/processed/  outputs, qa_report.txt
+paper/           preprint source (LaTeX), analysis and figure scripts, compiled PDF
 docs/            START_HERE, GLOSSARY, CODEBOOK, CODING_RULES, LIMITATIONS, VERIFY_CHECKLIST, NEXT_STEPS, PUBLISH_GUIDE, TALK_TRACK
 report/          stats.json (every number quoted anywhere), figures/
 tools/           provenance logger, publish gate, GitHub and Zenodo upload scripts

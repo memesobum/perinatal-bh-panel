@@ -1,0 +1,10 @@
+label,rho,n_hnlc,overlap,jaccard,storey,note
+Baseline,1.0,107,107,1.0,-64.8,
+"Capacity per 1,000 women aged 15-44",0.994,104,99,0.88,-63.5,
+Counties with <20 births unranked,1.0,110,101,0.87,,
+Health centers counted by address,1.0,106,104,0.95,-64.9,
+PPW programs counted by address,1.0,107,107,1.0,-64.8,
+Age-adjusted depression,0.989,115,99,0.8,-56.3,
+Need adds frequent mental distress,0.975,122,93,0.68,-66.3,
+Capacity adds MH listings,0.973,104,78,0.59,-51.3,
+Behavioral prescribers only,0.973,110,85,0.64,-65.0,

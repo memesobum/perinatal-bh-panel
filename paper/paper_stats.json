@@ -1,0 +1,360 @@
+{
+  "baseline_reproduces_max_abs_diff": 0.1999999999999993,
+  "rurality": {
+    "metro": {
+      "n": 1164,
+      "births": 3152315.0,
+      "women": 59278483,
+      "pct_births": 86.553006,
+      "dep_med": 23.2,
+      "svi_med": 0.4671,
+      "no_ppw": 35.051546,
+      "no_bhp": 11.168385,
+      "no_ob": 16.494845,
+      "no_hc": 18.556701,
+      "bh_per_1k_med": 219.47,
+      "ob_per_1k_med": 14.35,
+      "need_med": 49.55,
+      "cap_med": 58.8,
+      "gap_med": -7.9,
+      "hnlc": 23,
+      "births_no_ppw": 211647.0
+    },
+    "rural": {
+      "n": 1563,
+      "births": 461953.0,
+      "women": 7695613,
+      "pct_births": 12.683828,
+      "dep_med": 23.5,
+      "svi_med": 0.5609,
+      "no_ppw": 65.515035,
+      "no_bhp": 30.262316,
+      "no_ob": 36.724248,
+      "no_hc": 30.582214,
+      "bh_per_1k_med": 127.82,
+      "ob_per_1k_med": 6.83,
+      "need_med": 56.5,
+      "cap_med": 47.7,
+      "gap_med": 6.9,
+      "hnlc": 72,
+      "births_no_ppw": 231188.0
+    },
+    "frontier": {
+      "n": 417,
+      "births": 27795.0,
+      "women": 428770,
+      "pct_births": 0.763166,
+      "dep_med": 20.9,
+      "svi_med": 0.3376,
+      "no_ppw": 86.570743,
+      "no_bhp": 72.422062,
+      "no_ob": 77.218225,
+      "no_hc": 65.947242,
+      "bh_per_1k_med": 70.0,
+      "ob_per_1k_med": 0.0,
+      "need_med": 35.6,
+      "cap_med": 33.8,
+      "gap_med": -1.6,
+      "hnlc": 12,
+      "births_no_ppw": 18385.0
+    },
+    "all": {
+      "n": 3144,
+      "births": 3642063.0,
+      "women": 67402866,
+      "pct_births": 100.0,
+      "dep_med": 23.0,
+      "svi_med": 0.5,
+      "no_ppw": 57.029262,
+      "no_bhp": 28.784987,
+      "no_ob": 34.605598,
+      "no_hc": 30.820611,
+      "bh_per_1k_med": 155.43,
+      "ob_per_1k_med": 7.87,
+      "need_med": 51.2,
+      "cap_med": 50.4,
+      "gap_med": -0.1,
+      "hnlc": 107,
+      "births_no_ppw": 461220.0
+    }
+  },
+  "tot": {
+    "ppw_sud_facilities": 4585,
+    "ppw_sud_locations": 4516,
+    "tx_listings_all": 26557,
+    "tx_locations_all": 18915,
+    "tx_listings_mh": 12592,
+    "tx_listings_sa": 12007,
+    "tx_listings_otp": 1958,
+    "hc_sites": 11769,
+    "hc_locations": 11219,
+    "ob_clinicians": 82517,
+    "bh_prescribers": 122193,
+    "bh_therapists": 1184102,
+    "family_medicine_physicians": 155439,
+    "ppw_sud_facilities_medicaid": 4000,
+    "ppw_sud_facilities_moud": 3584,
+    "childcare_facilities": 500,
+    "res_child_beds_facilities": 248
+  },
+  "share_sa_listings_ppw": 38.2,
+  "ppw_pct_medicaid": 87.2,
+  "ppw_pct_moud": 78.2,
+  "ppw_pct_childcare": 7.9,
+  "ppw_pct_resbeds": 4.3,
+  "n_no_ob_clinician": 1088,
+  "n_no_hc": 969,
+  "n_no_any": 604,
+  "births_no_any": 50457,
+  "kw_gap_H": 182.6,
+  "kw_gap_p": 2.270348526704699e-40,
+  "chi_noppw": 423.9,
+  "chi_noppw_p": 9.132547490117699e-93,
+  "chi_noppw_dof": 2,
+  "rho_need_cap": 0.24,
+  "rho_need_cap_p": 2.6393631188337946e-42,
+  "rho_depression_crude_pct_cap": 0.187,
+  "rho_svi_overall_cap": 0.185,
+  "rho_dep_svi": 0.041,
+  "need_med_noppw": 48.8,
+  "need_med_ppw": 54.8,
+  "mw_need_p": 1.9135208245539436e-15,
+  "cap_med_small": 21.4,
+  "cap_med_big": 67.3,
+  "gap_iqr_small": 29.5,
+  "gap_iqr_big": 28.9,
+  "n_births_lt20": 97,
+  "n_births_gt2000": 365,
+  "sensitivity": [
+    {
+      "label": "Baseline",
+      "rho": 1.0,
+      "n_hnlc": 107,
+      "overlap": 107,
+      "jaccard": 1.0,
+      "storey": -64.8,
+      "note": ""
+    },
+    {
+      "label": "Capacity per 1,000 women aged 15-44",
+      "rho": 0.994,
+      "n_hnlc": 104,
+      "overlap": 99,
+      "jaccard": 0.88,
+      "storey": -63.5,
+      "note": ""
+    },
+    {
+      "label": "Counties with <20 births unranked",
+      "rho": 1.0,
+      "n_hnlc": 110,
+      "overlap": 101,
+      "jaccard": 0.87,
+      "storey": null,
+      "note": ""
+    },
+    {
+      "label": "Health centers counted by address",
+      "rho": 1.0,
+      "n_hnlc": 106,
+      "overlap": 104,
+      "jaccard": 0.95,
+      "storey": -64.9,
+      "note": ""
+    },
+    {
+      "label": "PPW programs counted by address",
+      "rho": 1.0,
+      "n_hnlc": 107,
+      "overlap": 107,
+      "jaccard": 1.0,
+      "storey": -64.8,
+      "note": ""
+    },
+    {
+      "label": "Age-adjusted depression",
+      "rho": 0.989,
+      "n_hnlc": 115,
+      "overlap": 99,
+      "jaccard": 0.8,
+      "storey": -56.3,
+      "note": ""
+    },
+    {
+      "label": "Need adds frequent mental distress",
+      "rho": 0.975,
+      "n_hnlc": 122,
+      "overlap": 93,
+      "jaccard": 0.68,
+      "storey": -66.3,
+      "note": ""
+    },
+    {
+      "label": "Capacity adds MH listings",
+      "rho": 0.973,
+      "n_hnlc": 104,
+      "overlap": 78,
+      "jaccard": 0.59,
+      "storey": -51.3,
+      "note": ""
+    },
+    {
+      "label": "Behavioral prescribers only",
+      "rho": 0.973,
+      "n_hnlc": 110,
+      "overlap": 85,
+      "jaccard": 0.64,
+      "storey": -65.0,
+      "note": ""
+    }
+  ],
+  "n_states_all_cty_have_ppw": 3,
+  "states_top5_births_noppw": [
+    [
+      "MS",
+      60.9
+    ],
+    [
+      "SD",
+      46.8
+    ],
+    [
+      "NE",
+      39.1
+    ],
+    [
+      "AR",
+      36.0
+    ],
+    [
+      "MO",
+      35.3
+    ]
+  ],
+  "states_zero_births_noppw": [
+    "CT",
+    "DC",
+    "DE",
+    "HI"
+  ],
+  "state_ppw_per10k_range": [
+    4.5,
+    "TX",
+    43.8,
+    "VT"
+  ],
+  "state_ppw_per10k_median": 14.8,
+  "hnlc_states": [
+    [
+      "TN",
+      22
+    ],
+    [
+      "TX",
+      21
+    ],
+    [
+      "KY",
+      10
+    ],
+    [
+      "AR",
+      8
+    ],
+    [
+      "AL",
+      7
+    ]
+  ],
+  "n_states_with_hnlc": 22,
+  "val_r_ob": 0.925,
+  "val_r_psy": 0.885,
+  "val_rho_ob": 0.864,
+  "val_rho_psy": 0.794,
+  "val_n": 3135,
+  "val_sum_ob_nppes": 81410,
+  "val_sum_ob_ahrf": 43842,
+  "val_sum_psy_nppes": 119808,
+  "val_sum_psy_ahrf": 37617,
+  "val_agree_zero_ob": 80.0,
+  "val_agree_zero_psy": 69.1,
+  "top15_small_births": 0,
+  "top15_states": {
+    "TN": 7,
+    "TX": 3,
+    "MN": 1,
+    "OK": 1,
+    "MO": 1,
+    "VA": 1,
+    "LA": 1
+  },
+  "nv": {
+    "births": 32888,
+    "n_no_ppw": 10,
+    "n_frontier": 11,
+    "ppw_total": 42,
+    "pct_births_noppw": 2.5,
+    "n_no_ob": 7,
+    "n_no_bhp": 5,
+    "clark_washoe_share_births": 89.9,
+    "clark_washoe_share_ppw": 69.0
+  },
+  "base": {
+    "version": "0.1.0",
+    "build_date": "2026-11-04",
+    "n_counties": 3144,
+    "n_states": 51,
+    "n_metro": 1164,
+    "n_rural": 1563,
+    "n_frontier": 417,
+    "births_total": 3642063,
+    "n_births_census_fallback": 48,
+    "n_births_fallback_ct": 9,
+    "n_births_fallback_suppressed": 39,
+    "n_places_prior_release": 187,
+    "n_small_births": 97,
+    "ft_unique": 26642,
+    "ft_locations": 18908,
+    "ft_ppw_total": 4600,
+    "ft_assigned_pct": 99.7,
+    "ft_unassigned": 85,
+    "ft_state_mismatch_fixed": 10,
+    "hc_sites_counted": 11769,
+    "hc_locations_counted": 11219,
+    "hc_unplaced_no_address": 58,
+    "clinicians_counted": 1544251,
+    "ob_clinicians_total": 82517,
+    "bh_prescribers_total": 122193,
+    "bh_therapists_total": 1184102,
+    "family_medicine_total": 155439,
+    "n_no_ppw_sud_facility": 1793,
+    "pct_no_ppw_sud_facility": 57.0,
+    "pct_births_in_no_ppw_counties": 12.7,
+    "pct_no_ppw_by_class": {
+      "frontier": 86.6,
+      "metro": 35.1,
+      "rural": 65.5
+    },
+    "n_no_bh_prescriber": 905,
+    "r_ob_vs_ahrf": 0.925,
+    "r_psych_vs_ahrf": 0.885,
+    "nv_ppw_listings": 42,
+    "nv_counties_no_ppw": 10,
+    "min_births_to_rank": 0,
+    "n_ranked": 3144,
+    "n_high_need_low_capacity": 107,
+    "high_need_low_capacity_by_class": {
+      "rural": 72,
+      "metro": 23,
+      "frontier": 12
+    },
+    "high_need_low_capacity_nonmetro_rucc": 83,
+    "median_gap_by_class": {
+      "frontier": -1.6,
+      "metro": -7.9,
+      "rural": 6.9
+    },
+    "median_capacity_small_births": 21.4,
+    "median_capacity_births_over_2000": 67.3
+  }
+}
