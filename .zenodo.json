@@ -1,0 +1,35 @@
+{
+  "upload_type": "dataset",
+  "title": "U.S. County Perinatal Behavioral Health Need and Capacity Panel (v0.1.0)",
+  "creators": [
+    {
+      "name": "Emesobum, Munachimso A.",
+      "orcid": "0009-0002-7506-2153",
+      "affiliation": "Independent Researcher, Nevada, USA"
+    }
+  ],
+  "description": "<p>An open, versioned county-level table for every U.S. county (3,144 counties and county-equivalents in the 50 states and DC) that sets measures of perinatal mental health and substance use need beside the treatment capacity available to pregnant and postpartum women, with rural and frontier counties flagged. Built only from open federal sources.</p><p><b>Release 1, need measures</b> (data/processed/need_county.csv): births (NCHS 3-year average via AHRF 2024-2025, Census fallback), women aged 15-44 (Census PEP V2024), adult depression and frequent mental distress (CDC PLACES), CDC/ATSDR SVI 2022, USDA RUCC 2023, population density, rural and frontier flags, data years, and small-number flags.</p><p><b>Release 2, capacity inventory</b>: 26,642 SAMHSA FindTreatment.gov listings with service flags (4,600 substance use listings with a pregnant/postpartum women program), 11,769 HRSA health center sites, and 1,544,251 obstetric, behavioral health, and family medicine clinicians from NPPES by NUCC taxonomy, aggregated to counties, with coding rules.</p><p><b>Release 3, gap scores</b>: percentile need and capacity scores, need-minus-capacity gap, national and in-state ranks, and a high-need/low-capacity flag (107 counties). 1,793 counties (57.0%), with 12.7% of U.S. births, have no substance use treatment listing for pregnant or postpartum women.</p><p>Includes code to rebuild everything from public sources (run_all.sh), codebook, coding rules, limitations, quality reports, file-level provenance (URL, date, SHA-256), and the accompanying preprint. Data and documents CC BY 4.0; code MIT. Claude (Anthropic) assisted with code and data handling; the author made every measurement decision and verified the results.</p>",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "version": "0.1.0",
+  "language": "eng",
+  "keywords": [
+    "perinatal mental health",
+    "maternal mental health",
+    "postpartum",
+    "substance use treatment",
+    "county health data",
+    "rural health",
+    "frontier",
+    "health workforce",
+    "open data"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/memesobum/perinatal-bh-panel",
+      "relation": "isSupplementTo",
+      "resource_type": "software",
+      "scheme": "url"
+    }
+  ]
+}
