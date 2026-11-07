@@ -62,4 +62,4 @@ Everything else is built for you. You make every measurement decision. Claude wr
 3. **Quality checks and first maps.** Count, compare, flag anything odd, and check Nevada closely.
 4. **Ready for your check.** Documentation, checklist, and publishing guide. You verify, then we publish.
 
-*You are here: verified and released as v0.1.0 on 2026-11-04. Next: put it on GitHub and Zenodo.*
+*You are here: released. v0.1.0 is on GitHub and on Zenodo with DOI 10.5281/zenodo.24025395 (2026-11-07). Next: post the preprint.*

@@ -1,6 +1,8 @@
 # U.S. County Perinatal Behavioral Health Need and Capacity Panel
 
-**Status:** Released v0.1.0 (verified by the author 2026-11-04) | **Repository:** https://github.com/memesobum/perinatal-bh-panel | **Maintainer:** Munachimso A. Emesobum, ORCID [0009-0002-7506-2153](https://orcid.org/0009-0002-7506-2153) | **License:** data and documents CC BY 4.0, code MIT
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24025395.svg)](https://doi.org/10.5281/zenodo.24025395)
+
+**Status:** Released v0.1.0 (verified by the author 2026-11-04) | **DOI:** [10.5281/zenodo.24025395](https://doi.org/10.5281/zenodo.24025395) | **Repository:** https://github.com/memesobum/perinatal-bh-panel | **Maintainer:** Munachimso A. Emesobum, ORCID [0009-0002-7506-2153](https://orcid.org/0009-0002-7506-2153) | **License:** data and documents CC BY 4.0, code MIT
 
 **In plain terms:** One free table with a row for every U.S. county. It shows how much mental health and substance use need pregnant and new mothers are likely to have, next to the treatment that is actually there for them. Rural and frontier counties are flagged. State and local agencies can use it to see where need runs ahead of services.
 
@@ -12,7 +14,7 @@ CDC's analysis of 2020 maternal mortality review committee data from 38 states a
 
 ## What is here
 
-Three releases, each with its own DOI, sharing the county key `fips` (Census Vintage 2024 geography; 3,144 counties in the 50 states and DC):
+Three parts, archived together under one Zenodo DOI and sharing the county key `fips` (Census Vintage 2024 geography; 3,144 counties in the 50 states and DC):
 
 | Release | File(s) | Contents |
 |---|---|---|
@@ -64,4 +66,8 @@ See [docs/LIMITATIONS.md](docs/LIMITATIONS.md) before using or citing anything h
 
 ## Citation and authorship
 
-See `CITATION.cff`. DOIs: added here as each Zenodo record is published. Munachimso A. Emesobum made every measurement decision and checked results against his Nevada county maps. Claude (Anthropic) assisted with code and data handling.
+See `CITATION.cff`. DOI for this version (v0.1.0): [10.5281/zenodo.24025395](https://doi.org/10.5281/zenodo.24025395). DOI for all versions (always resolves to the latest): [10.5281/zenodo.24025394](https://doi.org/10.5281/zenodo.24025394).
+
+Suggested citation: Emesobum, M. A. (2026). *U.S. County Perinatal Behavioral Health Need and Capacity Panel* (Version 0.1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24025395
+
+Munachimso A. Emesobum made every measurement decision and checked results against his Nevada county maps. Claude (Anthropic) assisted with code and data handling.

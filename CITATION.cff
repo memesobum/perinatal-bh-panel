@@ -3,7 +3,15 @@ message: "If you use this panel, please cite it as below. Each release has its o
 type: dataset
 title: "U.S. County Perinatal Behavioral Health Need and Capacity Panel"
 version: "0.1.0"
-date-released: "2026-11-04"
+doi: "10.5281/zenodo.24025395"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24025395"
+    description: "This version (v0.1.0)"
+  - type: doi
+    value: "10.5281/zenodo.24025394"
+    description: "All versions (concept DOI)"
+date-released: "2026-11-07"
 authors:
   - family-names: "Emesobum"
     given-names: "Munachimso A."

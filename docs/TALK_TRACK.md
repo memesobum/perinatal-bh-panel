@@ -12,7 +12,7 @@
 
 **Who can use it:** state Medicaid and public health agencies, maternal mortality review committees, rural health offices, researchers, and grant writers.
 
-**Where it is:** https://github.com/memesobum/perinatal-bh-panel, with a permanent Zenodo DOI for each release.
+**Where it is:** https://github.com/memesobum/perinatal-bh-panel, archived on Zenodo with DOI 10.5281/zenodo.24025395.
 
 ## Two-sentence version
 
