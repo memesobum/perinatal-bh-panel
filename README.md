@@ -1,6 +1,6 @@
 # U.S. County Perinatal Behavioral Health Need and Capacity Panel
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24025395.svg)](https://doi.org/10.5281/zenodo.24025395)
+[![Zenodo record badge](https://zenodo.org/badge/DOI/10.5281/zenodo.24025395.svg)](https://doi.org/10.5281/zenodo.24025395)
 
 **Status:** Released v0.1.0 (verified by the author 2026-11-04) | **DOI:** [10.5281/zenodo.24025395](https://doi.org/10.5281/zenodo.24025395) | **Repository:** https://github.com/memesobum/perinatal-bh-panel | **Maintainer:** Munachimso A. Emesobum, ORCID [0009-0002-7506-2153](https://orcid.org/0009-0002-7506-2153) | **License:** data and documents CC BY 4.0, code MIT
 
